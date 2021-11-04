@@ -75,7 +75,6 @@ dat1 %>%
 		n_total= sum(sample_size, na.rm=T),
 		paste = paste(sum(severe_pv_all, na.rm=T), sum(sample_size, na.rm=T), sep="/")
 	)
-
 #################################################################################
 # Meta-analysis I: Estimating proportion of patients with severe vivax using ALL
 #################################################################################
@@ -93,7 +92,6 @@ dat1 %>%
 update.meta(meta.prop,byvar=region_1)
 update.meta(meta.prop,byvar=settings_1)
 
-
 #=========================================================================
 # Mixed effects logistic regression appraoch: grouped logistic regression
 #=========================================================================
@@ -107,9 +105,6 @@ dat1$region_1 [dat1$region_1=="Oceania"] <- "Asia"
 
 dat1$settings_1 <- dat1$settings
 dat1$settings_1 [dat1$settings_1=="Other"] <- "outpatients"
-
-# new matrix
-table(dat1$region_1,dat1$settings_1)
 
 #=========================================================================
 # Mixed effects logistic regression appraoch: ALL DEFINITION
@@ -127,7 +122,6 @@ summary(model_0)
 #-------------------------
 model_1 <- glmer(cbind(severe_pv_all,sample_size - severe_pv_all) ~   region_1 + (1 | unique_ID) ,
               family = binomial, data = dat1)
-
 summary(model_1)
 
 #--------------------------------------------------
@@ -135,26 +129,21 @@ summary(model_1)
 #--------------------------------------------------
 model_2 <- glmer(cbind(severe_pv_all,sample_size - severe_pv_all) ~   settings_1 + (1 | unique_ID) ,
               family = binomial, data = dat1)
-
 summary(model_2)
 
 #--------------------------------------------------
 # Model with region + settings
 #--------------------------------------------------
-
 model_3 <- glmer(cbind(severe_pv_all,sample_size - severe_pv_all) ~   region_1 + settings_1 + (1 | unique_ID) ,
               family = binomial, data = dat1)
-
 summary(model_3)
 
 #--------------------------------------------------
 # Model with interaction between region+ settings
 #--------------------------------------------------
-
 model_4 <- glmer(cbind(severe_pv_all,sample_size - severe_pv_all) ~   region_1*settings_1 + (1 | unique_ID) ,
               family = binomial, data = dat1)
 summary(model_4)
-
 
 # Model comparision using AIC/BIC
 anova(model_0,model_1)
@@ -162,9 +151,6 @@ anova(model_0,model_2)
 anova(model_1,model_3)
 anova(model_2,model_3)
 anova(model_3,model_4)
-
-anova(model_0,model_1,model_2,model_3,model_4)
-
 
 #=========================================================================
 # Mixed effects logistic regression appraoch: WHO DEFINITION
@@ -182,7 +168,6 @@ summary(model_who_0)
 #-------------------------
 model_who_1 <- glmer(cbind(Severe_WHO,sample_size - Severe_WHO) ~   region_1 + (1 | unique_ID) ,
               family = binomial, data = dat1)
-
 summary(model_who_1)
 
 #--------------------------------------------------
@@ -190,16 +175,13 @@ summary(model_who_1)
 #--------------------------------------------------
 model_who_2 <- glmer(cbind(Severe_WHO,sample_size - Severe_WHO) ~   settings_1 + (1 | unique_ID) ,
               family = binomial, data = dat1)
-
 summary(model_who_2)
 
 #--------------------------------------------------
 # Model with region + settings
 #--------------------------------------------------
-
 model_who_3 <- glmer(cbind(Severe_WHO,sample_size - Severe_WHO) ~   region_1 + settings_1 + (1 | unique_ID) ,
               family = binomial, data = dat1)
-
 summary(model_who_3)
 
 #--------------------------------------------------
