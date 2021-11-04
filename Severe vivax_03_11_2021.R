@@ -27,7 +27,7 @@ nrow(unique<-dat [which(!duplicated(dat$unique_ID)),])
 
 # Add the number of cases based on WHO and other definitions to obtain overall number of cases
 dat$severe_pv_all 	<- dat$Severe_WHO+dat$Severe_other
-dat$cerebral_all 		<- dat$cerebral_WHO+dat$cerebral_other
+dat$cerebral_all 	<- dat$cerebral_WHO+dat$cerebral_other
 dat$renal_all 		<- dat$renal_WHO+dat$renal_other
 dat$respiratory_all 	<- dat$respiratory_WHO+dat$respiratory_other
 
